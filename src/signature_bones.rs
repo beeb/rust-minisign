@@ -7,8 +7,8 @@ use crate::signature_box::*;
 /// serialization only
 #[derive(Clone)]
 pub struct SignatureBones {
-    pub(crate) signature: Signature,
-    pub(crate) is_prehashed: bool,
+    pub signature: Signature,
+    pub is_prehashed: bool,
 }
 
 impl SignatureBones {

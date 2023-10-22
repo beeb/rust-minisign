@@ -70,23 +70,23 @@ impl SecretKeyBox {
 /// A `SecretKey` is used to create signatures.
 #[derive(Clone)]
 pub struct SecretKey {
-    pub(crate) sig_alg: [u8; TWOBYTES],
-    pub(crate) kdf_alg: [u8; TWOBYTES],
-    pub(crate) chk_alg: [u8; TWOBYTES],
-    pub(crate) kdf_salt: [u8; KDF_SALTBYTES],
-    pub(crate) kdf_opslimit_le: [u8; KEYNUM_BYTES],
-    pub(crate) kdf_memlimit_le: [u8; KEYNUM_BYTES],
-    pub(crate) keynum_sk: KeynumSK,
+    pub sig_alg: [u8; TWOBYTES],
+    pub kdf_alg: [u8; TWOBYTES],
+    pub chk_alg: [u8; TWOBYTES],
+    pub kdf_salt: [u8; KDF_SALTBYTES],
+    pub kdf_opslimit_le: [u8; KEYNUM_BYTES],
+    pub kdf_memlimit_le: [u8; KEYNUM_BYTES],
+    pub keynum_sk: KeynumSK,
 }
 
 impl SecretKey {
-    pub(crate) fn write_checksum(&mut self) -> Result<()> {
+    pub fn write_checksum(&mut self) -> Result<()> {
         let h = self.read_checksum()?;
         self.keynum_sk.chk.copy_from_slice(&h[..]);
         Ok(())
     }
 
-    pub(crate) fn read_checksum(&self) -> Result<Vec<u8>> {
+    pub fn read_checksum(&self) -> Result<Vec<u8>> {
         let mut state = Blake2b::new(CHK_BYTES);
         state.update(&self.sig_alg);
         state.update(&self.keynum_sk.keynum);
@@ -96,7 +96,7 @@ impl SecretKey {
         Ok(h)
     }
 
-    pub(crate) fn xor_keynum(&mut self, stream: &[u8]) {
+    pub fn xor_keynum(&mut self, stream: &[u8]) {
         for (byte, stream) in self.keynum_sk.keynum.iter_mut().zip(stream.iter()) {
             *byte ^= *stream
         }
@@ -120,7 +120,7 @@ impl SecretKey {
         }
     }
 
-    pub(crate) fn encrypt(mut self, password: String) -> Result<SecretKey> {
+    pub fn encrypt(mut self, password: String) -> Result<SecretKey> {
         let mut stream = [0u8; CHK_BYTES + SECRETKEY_BYTES + KEYNUM_BYTES];
         let opslimit = load_u64_le(&self.kdf_opslimit_le);
         let memlimit = load_u64_le(&self.kdf_memlimit_le) as usize;
@@ -250,12 +250,12 @@ impl SecretKey {
         Ok(s.into())
     }
 
-    pub(crate) fn from_base64(s: &str) -> Result<SecretKey> {
+    pub fn from_base64(s: &str) -> Result<SecretKey> {
         let bytes = Base64::decode_to_vec(s)?;
         SecretKey::from_bytes(&bytes[..])
     }
 
-    pub(crate) fn to_base64(&self) -> String {
+    pub fn to_base64(&self) -> String {
         Base64::encode_to_string(self.to_bytes().as_slice()).unwrap()
     }
 

@@ -72,8 +72,8 @@ impl PublicKeyBox {
 /// A `PublicKey` is used to verify signatures.
 #[derive(Clone, Debug)]
 pub struct PublicKey {
-    pub(crate) sig_alg: [u8; TWOBYTES],
-    pub(crate) keynum_pk: KeynumPK,
+    pub sig_alg: [u8; TWOBYTES],
+    pub keynum_pk: KeynumPK,
 }
 
 impl PublicKey {

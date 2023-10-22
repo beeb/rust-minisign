@@ -89,18 +89,18 @@
     clippy::vec_init_then_push
 )]
 
-mod base64;
-mod constants;
-mod crypto;
-mod errors;
-mod helpers;
-mod keynum;
-mod keypair;
-mod public_key;
-mod secret_key;
-mod signature;
-mod signature_bones;
-mod signature_box;
+pub mod base64;
+pub mod constants;
+pub mod crypto;
+pub mod errors;
+pub mod helpers;
+pub mod keynum;
+pub mod keypair;
+pub mod public_key;
+pub mod secret_key;
+pub mod signature;
+pub mod signature_bones;
+pub mod signature_box;
 
 #[cfg(test)]
 mod tests;

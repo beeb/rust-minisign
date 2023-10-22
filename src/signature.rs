@@ -5,7 +5,7 @@ use crate::constants::*;
 use crate::Result;
 
 #[derive(Clone)]
-pub(crate) struct Signature {
+pub struct Signature {
     pub sig_alg: [u8; TWOBYTES],
     pub keynum: [u8; KEYNUM_BYTES],
     pub sig: [u8; SIGNATURE_BYTES],

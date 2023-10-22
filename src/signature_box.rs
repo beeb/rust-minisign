@@ -10,11 +10,11 @@ use crate::signature::*;
 /// A signature, as well as the metadata required to verify it.
 #[derive(Clone)]
 pub struct SignatureBox {
-    pub(crate) untrusted_comment: String,
-    pub(crate) signature: Signature,
-    pub(crate) sig_and_trusted_comment: Option<Vec<u8>>,
-    pub(crate) global_sig: Option<Vec<u8>>,
-    pub(crate) is_prehashed: bool,
+    pub untrusted_comment: String,
+    pub signature: Signature,
+    pub sig_and_trusted_comment: Option<Vec<u8>>,
+    pub global_sig: Option<Vec<u8>>,
+    pub is_prehashed: bool,
 }
 
 impl From<SignatureBox> for String {

@@ -5,9 +5,9 @@ use crate::constants::*;
 use crate::crypto::util::fixed_time_eq;
 
 #[derive(Debug, Clone)]
-pub(crate) struct KeynumPK {
-    pub(crate) keynum: [u8; KEYNUM_BYTES],
-    pub(crate) pk: [u8; PUBLICKEY_BYTES],
+pub struct KeynumPK {
+    pub keynum: [u8; KEYNUM_BYTES],
+    pub pk: [u8; PUBLICKEY_BYTES],
 }
 
 impl cmp::PartialEq for KeynumPK {
@@ -18,7 +18,7 @@ impl cmp::PartialEq for KeynumPK {
 impl cmp::Eq for KeynumPK {}
 
 #[derive(Clone)]
-pub(crate) struct KeynumSK {
+pub struct KeynumSK {
     pub keynum: [u8; KEYNUM_BYTES],
     pub sk: [u8; SECRETKEY_BYTES],
     pub chk: [u8; CHK_BYTES],
